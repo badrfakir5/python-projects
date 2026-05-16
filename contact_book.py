@@ -1,10 +1,15 @@
+from datetime import datetime
+
+
 contacts = []
 
 def add_contact(contact):
     try: 
+        now = datetime.now()
+        date = now.strftime(" %d/%m/%Y ")
         name = input("Add a name for a new contact: ")
         number = int(input("Add a phone number for the new contact: "))
-        contact.append({"name": name, "number": number})
+        contact.append({"name": name, "number": number , "date": date})
         print("contact added!")
     except ValueError:
         print("error")
@@ -14,7 +19,7 @@ def view_contacts(contacts):
         print("No contacts yet!")
     else :
         for Contact in contacts:
-            print(f"name : {Contact['name']} | number : {Contact['number']}")
+            print(f"name : {Contact['name']} | number : {Contact['number']} | date : {Contact['date']}")
             
 def search_contact(contacts):
     try:
