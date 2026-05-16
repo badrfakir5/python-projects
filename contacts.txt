@@ -1,4 +1,3 @@
-
 badr,100
 khalid,200
 sam,300
