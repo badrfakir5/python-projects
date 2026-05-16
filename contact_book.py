@@ -1,8 +1,22 @@
 from datetime import datetime
+import os
 
 
 contacts = []
 
+def load_contacts(contacts):
+    if os.path.exists("contacts.txt"):
+        with open("contacts.txt","r") as f:
+            for row in f:
+                row = row.strip()
+                if row:
+                    parts = row.split(",")
+                    contacts.append({
+                        "name": parts[0],
+                        "number": parts[1],
+                        "date": parts[2]
+                        })
+                
 def add_contact(contact):
     try: 
         now = datetime.now()
@@ -37,12 +51,9 @@ def search_contact(contacts):
 def save_contacts(contacts):
     with open("contacts.txt","w") as f:
         for Contact in contacts:
-            f.write(f"\n{Contact['name']},{Contact['number']}")
+            f.write(f"\n{Contact['name']},{Contact['number']},{Contact['date']}")
 
-
-
-
-
+load_contacts(contacts)
 
 while True:
     print("1. Add contact")
