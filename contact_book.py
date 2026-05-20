@@ -1,7 +1,6 @@
 from datetime import datetime
 import os
 
-
 contacts = []
 
 def load_contacts(contacts):
