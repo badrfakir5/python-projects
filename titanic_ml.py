@@ -2,6 +2,9 @@ import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
 
 # Load data
 df = pd.read_csv("train.csv")
@@ -16,7 +19,7 @@ X = df[features]
 y = df["Survived"]
 
 # Split data
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Train model
 model = DecisionTreeClassifier()
@@ -25,4 +28,16 @@ model.fit(X_train, y_train)
 # Evaluate
 predictions = model.predict(X_test)
 accuracy = accuracy_score(y_test, predictions)
-print(f"Accuracy: {accuracy * 100:.2f}%")
+
+# Models
+models = {
+    "Decision Tree": DecisionTreeClassifier(),
+    "Random Forest": RandomForestClassifier(),
+    "Logistic Regression": LogisticRegression()
+}
+
+for name, model in models.items():
+    model.fit(X_train, y_train)
+    predictions = model.predict(X_test)
+    accuracy = accuracy_score(y_test, predictions)
+    print(f"{name}: {accuracy * 100:.2f}%")
