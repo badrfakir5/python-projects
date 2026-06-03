@@ -14,7 +14,7 @@ df["Age"] = df["Age"].fillna(df["Age"].mean())
 df["Sex"] = df["Sex"].map({"male": 1, "female": 0})
 
 # Features and target
-features = ["Pclass", "Age", "Sex"]
+features = ["Pclass", "Age", "Sex","SibSp", "Parch"]
 X = df[features]
 y = df["Survived"]
 
@@ -31,8 +31,8 @@ accuracy = accuracy_score(y_test, predictions)
 
 # Models
 models = {
-    "Decision Tree": DecisionTreeClassifier(),
-    "Random Forest": RandomForestClassifier(),
+    "Decision Tree": DecisionTreeClassifier(random_state=42),
+    "Random Forest": RandomForestClassifier(random_state=42),
     "Logistic Regression": LogisticRegression()
 }
 
