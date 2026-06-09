@@ -5,6 +5,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 # Load data
 df = pd.read_csv("train.csv")
@@ -36,8 +39,15 @@ models = {
     "Logistic Regression": LogisticRegression()
 }
 
-for name, model in models.items():
-    model.fit(X_train, y_train)
-    predictions = model.predict(X_test)
-    accuracy = accuracy_score(y_test, predictions)
-    print(f"{name}: {accuracy * 100:.2f}%")
+# for name, model in models.items():
+#     model.fit(X_train, y_train)
+#     predictions = model.predict(X_test)
+#     accuracy = accuracy_score(y_test, predictions)
+#     print(f"{name}: {accuracy * 100:.2f}%")
+cm = confusion_matrix(y_test, predictions)
+sns.heatmap(cm, annot=True, fmt="d", xticklabels=["Died", "Survived"],yticklabels=["Died", "Survived"])
+plt.title("Confusion Matrix")
+plt.ylabel("Actual")
+plt.xlabel("Predicted")
+plt.show()
+
