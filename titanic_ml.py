@@ -8,6 +8,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import confusion_matrix
 import seaborn as sns
 import matplotlib.pyplot as plt
+import numpy as np
 
 # Load data
 df = pd.read_csv("train.csv")
@@ -38,16 +39,30 @@ models = {
     "Random Forest": RandomForestClassifier(random_state=42),
     "Logistic Regression": LogisticRegression()
 }
+names = []
+accuracies = []
 
-# for name, model in models.items():
-#     model.fit(X_train, y_train)
-#     predictions = model.predict(X_test)
-#     accuracy = accuracy_score(y_test, predictions)
-#     print(f"{name}: {accuracy * 100:.2f}%")
-cm = confusion_matrix(y_test, predictions)
-sns.heatmap(cm, annot=True, fmt="d", xticklabels=["Died", "Survived"],yticklabels=["Died", "Survived"])
-plt.title("Confusion Matrix")
-plt.ylabel("Actual")
-plt.xlabel("Predicted")
+for name, model in models.items():
+    model.fit(X_train, y_train)
+    predictions = model.predict(X_test)
+    accuracy = accuracy_score(y_test, predictions)
+    names.append(name)
+    accuracies.append(accuracy)
+
+plt.bar(names,accuracies)
+plt.title("accuracy of the ML modles")
+plt.xlabel("names")
+plt.ylabel("accuracy")
 plt.show()
+
+
+
+
+# # confusion matrix 
+# cm = confusion_matrix(y_test, predictions)
+# sns.heatmap(cm, annot=True, fmt="d", xticklabels=["Died", "Survived"],yticklabels=["Died", "Survived"])
+# plt.title("Confusion Matrix")
+# plt.ylabel("Actual")
+# plt.xlabel("Predicted")
+# plt.show()
 
