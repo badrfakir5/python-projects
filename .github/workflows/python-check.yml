@@ -1,0 +1,19 @@
+name: Python Check
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install pandas scikit-learn matplotlib seaborn
+      - name: Run check
+        run: python -c "import pandas; import sklearn; print('All good!')"
